@@ -51,9 +51,9 @@ class DocubotTest extends TestCase {
 
     public function testSuccessfulFirstMessageSendMessage() {
 
+        //Test to ensure the message goes through, and returns a non-empty response
         $docubot = new Docubot( $this->key, $this->secret);
         $test = $docubot->send_message( 'Test' );
-        $this->assertNull( $test->errors['errors'] );
         $this->assertInstanceOf( DocubotMessageResponse::class, $test );
         $this->assertInstanceOf( DocubotMessageResponseData::class, $test->data );
         $this->assertInstanceOf( DocubotMessageResponseMeta::class, $test->meta );
@@ -61,6 +61,17 @@ class DocubotTest extends TestCase {
         $this->assertInternalType( 'bool', $test->data->complete );
         $this->assertInternalType( 'string', $test->meta->threadId );
         $this->assertInternalType( 'string', $test->meta->userId );
+
+
+    }
+
+    /*public function testSuccessfulNotFirstMessageSendMessage() {
+
+        //Test to ensure we get back the same threadId and userId we put into it
+        $docubot = new Docubot( $this->key, $this->secret);
+        $test = $docubot->send_message( 'Test', $thread, $user );
+        $this->assertEquals( $thread, $test->meta->threadId );
+        $this->assertEquals( $thread, $test->meta->userId );
 
 
     }

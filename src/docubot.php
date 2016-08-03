@@ -86,6 +86,7 @@ class Docubot {
      * @param string $key The API Key for this Docubot Instance.
      * @param string $secret The API Secret for this Docubot Instance.
      * @param string $urlBase The optional base URL for Docubot (if not using live server)
+     *  (Do not include a trailing '/')
      */
     public function __construct( $key, $secret, $urlBase = "https://docubotapi.1law.com" ) {
 
@@ -108,7 +109,7 @@ class Docubot {
      */
     public function send_message( $message, $thread = "", $sender = "" ) {
 
-        $ch = curl_init( $this->APIURLBase );
+        $ch = curl_init( $this->APIURLBase . '/api/v1/docubot' );
         $data = [ 'message' => $message, 'thread' => $thread, 'sender' => $sender ];
         $data = json_encode( $data );
         curl_setopt($ch, CURLOPT_POST, 1);
