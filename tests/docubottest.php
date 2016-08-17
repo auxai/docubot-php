@@ -8,15 +8,15 @@ class DocubotTest extends TestCase {
     //Environment vaiables used for testing
     private $key;
     private $secret;
-    //private $thread;
-    //private $user;
+    private $thread;
+    private $user;
 
     function __construct() {
 
         $this->key = getenv( 'KEY' );
         $this->secret = getenv( 'SECRET' );
-        //$this->thread = getenv( 'THREAD' );
-        //$this->user = getenv( 'USER' );
+        $this->thread = getenv( 'THREAD' );
+        $this->user = getenv( 'USER' );
 
     }
 
@@ -65,13 +65,13 @@ class DocubotTest extends TestCase {
 
     }
 
-    /*public function testSuccessfulNotFirstMessageSendMessage() {
+    public function testSuccessfulNotFirstMessageSendMessage() {
 
         //Test to ensure we get back the same threadId and userId we put into it
         $docubot = new Docubot( $this->key, $this->secret);
-        $test = $docubot->send_message( 'Test', $thread, $user );
-        $this->assertEquals( $thread, $test->meta->threadId );
-        $this->assertEquals( $thread, $test->meta->userId );
+        $test = $docubot->send_message( 'Test', $this->thread, $this->user );
+        $this->assertEquals( $this->thread, $test->meta->threadId );
+        $this->assertEquals( $this->user, $test->meta->userId );
 
 
     }
@@ -86,7 +86,7 @@ class DocubotTest extends TestCase {
         $this->assertArrayHasKey( 'errors', $test->errors );
 
     }
-/*
+
     public function testInvalidApiKeyGetDocUrl() {
 
         $docubot = new Docubot( 'RAWR key', $this->secret );
@@ -121,15 +121,6 @@ class DocubotTest extends TestCase {
         fclose( $fp );
 
     }
-/*
-    public function testInvalidFilePathGetDoc(){
-
-        $docubot = new Docubot( $this->key, $this->secret );
-        $test = $docubot->get_document( $this->thread, $this->user, 'RAWR' );
-        $this->assertInstanceOf( DocubotError::class, $test );
-        $this->assertArrayHasKey( 'errors', $test->errors );
-
-    }
 
     public function testInvalidApiKeyGetDoc() {
 
@@ -139,7 +130,7 @@ class DocubotTest extends TestCase {
         $this->assertInstanceOf( DocubotError::class, $test );
         $this->assertArrayHasKey( 'errors', $test->errors );
         $tempfile = stream_get_contents( $fp );
-        $this->asserEquals( '', $tempfile );
+        $this->assertEquals( '', $tempfile );
         fclose( $fp );
 
     }
@@ -152,7 +143,7 @@ class DocubotTest extends TestCase {
         $this->assertNull( $test );
         $tempfile = stream_get_contents( $fp );
         //assert that the file is not empty
-        $this->assertNotEquals( '', $tempfile );
+        $this->assertNotNull( $tempfile );
         fclose( $fp );
 
     }
