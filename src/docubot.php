@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 Copyright (C)  2016, 1LAW Legal Technologies, LLC
 
 This program is free software: you can redistribute it and/or modify
